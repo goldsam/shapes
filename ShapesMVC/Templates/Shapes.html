@@ -1,0 +1,79 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Parameters</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="shape-type">Type</label>
+                            <select class="form-control input-sm" id="shape-type" ng-model="parameters.type">
+                                <option value="triangle">Triangle</option>
+                                <option value="diamond">Diamond</option>
+                                <option value="square">Square</option>
+                                <option value="rectangle">Rectangle</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="shape-height">Height</label>
+                            <input type="number" class="form-control input-sm" id="shape-height" ng-model="parameters.height">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="shape-label">Label</label>
+                            <input type="text" class="form-control input-sm" id="shape-label" ng-model="parameters.label" ng-trim="false">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="shape-label">Label Row</label>
+                            <input type="number" class="form-control input-sm" id="shape-label" ng-model="parameters.labelRow">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default input-sm" ng-click="createShape()">Generate Shape!</button>
+                </div>
+            </div>
+
+
+            <div class="panel panel-info ">
+                <div class="panel-heading">
+                    <h3 class="panel-title">History</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed table-hover shape-history">
+                        <colgroup>
+                            <col span="1" style="width: 20%;">
+                            <col span="1" style="width: 15%;">
+                            <col span="1" style="width: 50%;">
+                            <col span="1" style="width: 15%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Height</th>
+                                <th class="char-wrap">Label</th>
+                                <th>Label Row</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr ng-repeat="shape in shapeHistory" ng-click="selectShape(shape)" ng-class="{'active': isShapeSelected(shape)}">
+                                <td>{{shape.parameters.type | capitalize}}</td>
+                                <td>{{shape.parameters.height}}</td>
+                                <td>{{shape.parameters.label}}</td>
+                                <td>{{shape.parameters.labelRow}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination direction-links="false" boundary-links="true" class="pagination-sm" total-items="paging.totalCount" ng-model="paging.page" ng-change="fetchShapes()" items-per-page="paging.pageSize" max-size="10"></pagination>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Shape:</h3>
+            <pre>{{selectedShape.renderedShape}}</pre>
+        </div>
+    </div>
+</div>
